@@ -9,7 +9,7 @@ export default createGlobalStyle`
         outline: 0;
     }
     body {
-        background: #F0F0F5 url(${githubBackground}) no-repeat right top;
+        background: #F0F0F5 url(${githubBackground}) no-repeat 70% top;
         -webkit-font-smoothing: antialiased;
     }
     body, input, button {
