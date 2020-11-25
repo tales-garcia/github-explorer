@@ -1,11 +1,13 @@
 import React from 'react';
 import { Title } from './styles';
+import logo from '../../images/github_explorer-logo.svg';
 
 const Landing : React.FC = () => {
     return (
-        <div className="container">
+        <>
+            <img src={logo} alt="Github Explorer"/>
             <Title>bhi</Title>
-        </div>
+        </>
     );
 }
 
