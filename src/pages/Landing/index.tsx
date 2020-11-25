@@ -6,7 +6,7 @@ const Landing : React.FC = () => {
     return (
         <>
             <img src={logo} alt="Github Explorer"/>
-            <Title>bhi</Title>
+            <Title>Explore repositórios no Github.</Title>
         </>
     );
 }
