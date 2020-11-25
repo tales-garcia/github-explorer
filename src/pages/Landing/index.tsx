@@ -1,5 +1,5 @@
 import React from 'react';
-import { Title } from './styles';
+import { Title, Form } from './styles';
 import logo from '../../images/github_explorer-logo.svg';
 
 const Landing : React.FC = () => {
@@ -7,6 +7,10 @@ const Landing : React.FC = () => {
         <>
             <img src={logo} alt="Github Explorer"/>
             <Title>Explore repositórios no Github.</Title>
+            <Form>
+                <input type="text" name="repo-name" placeholder="Digite o nome do repositório" />
+                <button type="submit">Pesquisar</button>
+            </Form>
         </>
     );
 }
