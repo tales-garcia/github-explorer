@@ -1,90 +1,76 @@
-import React from 'react';
-import { Title, Form, Repositories } from './styles';
+import React, { FormEvent, useState } from 'react';
+import { Title, Form, Repositories, Error } from './styles';
 import logo from '../../images/github_explorer-logo.svg';
 import { FiChevronRight } from 'react-icons/fi';
+import api from '../../services/api';
 
-const Landing : React.FC = () => {
+interface Repository {
+    full_name: string,
+    owner: {
+        avatar_url: string,
+        login: string
+    },
+    description: string,
+    stargazers_count: number,
+    forks_count: number,
+    open_issues_count: number
+}
+
+const Landing: React.FC = () => {
+    const [repositories, setRepositories] = useState<Repository[]>([]);
+    const [invalidInputErrorMessage, setInvalidInputErrorMessage] = useState('');
+    const [searchText, setSearchText] = useState('');
+
+    async function handleSearchSubmit(e: FormEvent) {
+        e.preventDefault();
+
+        if (!searchText) {
+            setInvalidInputErrorMessage('Digite autor/nome do repositório');
+            return;
+        }
+
+        try {
+
+            const res = await api.get(`/repos/${searchText}`);
+
+            setRepositories([res.data as Repository, ...repositories]);
+            setSearchText('');
+            setInvalidInputErrorMessage('');
+        } catch (err) {
+            setInvalidInputErrorMessage('Repositório inexistente');
+            return;
+        }
+    }
+
     return (
         <>
-            <img src={logo} alt="Github Explorer"/>
+            <img src={logo} alt="Github Explorer" />
             <Title>Explore repositórios no Github.</Title>
-            <Form>
-                <input type="text" name="repo-name" placeholder="Digite o nome do repositório" />
+            <Form error={!!invalidInputErrorMessage} onSubmit={handleSearchSubmit}>
+                <input
+                    value={searchText}
+                    onChange={e => setSearchText(e.target.value)}
+                    type="text"
+                    placeholder="Digite o nome do repositório"
+                />
                 <button type="submit">Pesquisar</button>
             </Form>
+
+            {invalidInputErrorMessage && <Error>{ invalidInputErrorMessage }</Error>}
+
             <Repositories>
-                <a href="dgtgbds">
-                    <img src="https://avatars0.githubusercontent.com/u/58866268?s=460&u=fdafb8d175565604591f4fc4b1478ad0b2658b38&v=4" alt="Tales Garcia"/>
-                    <div>
-                        <strong>tales-garcia/github-explorer</strong>
-                        <p>Um projeto para facilitar a navegação entre repositórios no Github</p>
-                    </div>
-                    <FiChevronRight color="#3D3D4D" size={20} />
-                </a>
-                <a href="dgtgbds">
-                    <img src="https://avatars0.githubusercontent.com/u/58866268?s=460&u=fdafb8d175565604591f4fc4b1478ad0b2658b38&v=4" alt="Tales Garcia"/>
-                    <div>
-                        <strong>tales-garcia/github-explorer</strong>
-                        <p>Um projeto para facilitar a navegação entre repositórios no Github</p>
-                    </div>
-                    <FiChevronRight color="#3D3D4D" size={20} />
-                </a>
-                <a href="dgtgbds">
-                    <img src="https://avatars0.githubusercontent.com/u/58866268?s=460&u=fdafb8d175565604591f4fc4b1478ad0b2658b38&v=4" alt="Tales Garcia"/>
-                    <div>
-                        <strong>tales-garcia/github-explorer</strong>
-                        <p>Um projeto para facilitar a navegação entre repositórios no Github</p>
-                    </div>
-                    <FiChevronRight color="#3D3D4D" size={20} />
-                </a>
-                <a href="dgtgbds">
-                    <img src="https://avatars0.githubusercontent.com/u/58866268?s=460&u=fdafb8d175565604591f4fc4b1478ad0b2658b38&v=4" alt="Tales Garcia"/>
-                    <div>
-                        <strong>tales-garcia/github-explorer</strong>
-                        <p>Um projeto para facilitar a navegação entre repositórios no Github</p>
-                    </div>
-                    <FiChevronRight color="#3D3D4D" size={20} />
-                </a>
-                <a href="dgtgbds">
-                    <img src="https://avatars0.githubusercontent.com/u/58866268?s=460&u=fdafb8d175565604591f4fc4b1478ad0b2658b38&v=4" alt="Tales Garcia"/>
-                    <div>
-                        <strong>tales-garcia/github-explorer</strong>
-                        <p>Um projeto para facilitar a navegação entre repositórios no Github</p>
-                    </div>
-                    <FiChevronRight color="#3D3D4D" size={20} />
-                </a>
-                <a href="dgtgbds">
-                    <img src="https://avatars0.githubusercontent.com/u/58866268?s=460&u=fdafb8d175565604591f4fc4b1478ad0b2658b38&v=4" alt="Tales Garcia"/>
-                    <div>
-                        <strong>tales-garcia/github-explorer</strong>
-                        <p>Um projeto para facilitar a navegação entre repositórios no Github</p>
-                    </div>
-                    <FiChevronRight color="#3D3D4D" size={20} />
-                </a>
-                <a href="dgtgbds">
-                    <img src="https://avatars0.githubusercontent.com/u/58866268?s=460&u=fdafb8d175565604591f4fc4b1478ad0b2658b38&v=4" alt="Tales Garcia"/>
-                    <div>
-                        <strong>tales-garcia/github-explorer</strong>
-                        <p>Um projeto para facilitar a navegação entre repositórios no Github</p>
-                    </div>
-                    <FiChevronRight color="#3D3D4D" size={20} />
-                </a>
-                <a href="dgtgbds">
-                    <img src="https://avatars0.githubusercontent.com/u/58866268?s=460&u=fdafb8d175565604591f4fc4b1478ad0b2658b38&v=4" alt="Tales Garcia"/>
-                    <div>
-                        <strong>tales-garcia/github-explorer</strong>
-                        <p>Um projeto para facilitar a navegação entre repositórios no Github</p>
-                    </div>
-                    <FiChevronRight color="#3D3D4D" size={20} />
-                </a>
-                <a href="dgtgbds">
-                    <img src="https://avatars0.githubusercontent.com/u/58866268?s=460&u=fdafb8d175565604591f4fc4b1478ad0b2658b38&v=4" alt="Tales Garcia"/>
-                    <div>
-                        <strong>tales-garcia/github-explorer</strong>
-                        <p>Um projeto para facilitar a navegação entre repositórios no Github</p>
-                    </div>
-                    <FiChevronRight color="#3D3D4D" size={20} />
-                </a>
+                {repositories.map(repo => {
+                    return (
+                        <a key={repo.full_name} href={repo.full_name}>
+                            <img src={repo.owner.avatar_url} alt={repo.owner.login} />
+                            <div>
+                                <strong>{repo.full_name}</strong>
+                                <p>{repo.description}</p>
+                            </div>
+                            <FiChevronRight color="#3D3D4D" size={20} />
+                        </a>
+                    );
+                })}
             </Repositories>
         </>
     );

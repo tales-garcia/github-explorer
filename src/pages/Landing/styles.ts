@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import { shade } from 'polished';
 
+interface FormProps {
+    error: boolean;
+}
+
 export const Title = styled.h1`
     font-size: 48px;
     color: #3a3a3a;
@@ -10,7 +14,7 @@ export const Title = styled.h1`
     margin-top: 80px;
 `;
 
-export const Form = styled.form`
+export const Form = styled.form<FormProps>`
     margin-top: 40px;
     max-width: 700px;
 
@@ -19,8 +23,9 @@ export const Form = styled.form`
     input {
         flex: 1;
         padding: 0 24px;
-        border: 0;
+        border: 1px solid ${props => props.error ? '#c53030' : 'transparent'};
         border-radius: 5px 0 0 5px;
+        border-right: 0;
 
         &::placeholder {
             color: #a8a8b3;
