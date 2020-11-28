@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { Title, Form, Repositories, Error } from './styles';
 import logo from '../../images/github_explorer-logo.svg';
 import { FiChevronRight } from 'react-icons/fi';
@@ -17,9 +17,15 @@ interface Repository {
 }
 
 const Landing: React.FC = () => {
-    const [repositories, setRepositories] = useState<Repository[]>([]);
+    const [repositories, setRepositories] = useState<Repository[]>(
+        JSON.parse(localStorage.getItem('@githubexplorer:repositories') || '[]')
+    );
     const [invalidInputErrorMessage, setInvalidInputErrorMessage] = useState('');
     const [searchText, setSearchText] = useState('');
+
+    useEffect(() => {
+        localStorage.setItem('@githubexplorer:repositories', JSON.stringify(repositories));
+    }, [repositories]);
 
     async function handleSearchSubmit(e: FormEvent) {
         e.preventDefault();
