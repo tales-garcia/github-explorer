@@ -3,6 +3,7 @@ import { Title, Form, Repositories, Error } from './styles';
 import logo from '../../images/github_explorer-logo.svg';
 import { FiChevronRight } from 'react-icons/fi';
 import api from '../../services/api';
+import { Link } from 'react-router-dom';
 
 interface Repository {
     full_name: string,
@@ -67,14 +68,14 @@ const Landing: React.FC = () => {
             <Repositories>
                 {repositories.map(repo => {
                     return (
-                        <a key={repo.full_name} href={repo.full_name}>
+                        <Link key={repo.full_name} to={`repo/${repo.full_name}`}>
                             <img src={repo.owner.avatar_url} alt={repo.owner.login} />
                             <div>
                                 <strong>{repo.full_name}</strong>
                                 <p>{repo.description}</p>
                             </div>
                             <FiChevronRight color="#3D3D4D" size={20} />
-                        </a>
+                        </Link>
                     );
                 })}
             </Repositories>
