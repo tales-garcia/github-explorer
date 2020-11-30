@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+import { lighten } from 'polished';
 
 export const Header = styled.header`
     display: flex;
@@ -97,6 +98,12 @@ export const Issues = styled.div`
             margin-top: 16px;
         }
 
+        img {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+        }
+
         div {
             margin: 0 16px;
             flex: 1;
@@ -115,4 +122,69 @@ export const Issues = styled.div`
             margin-left: auto;
         }
     }
+`;
+
+const gradientMove = keyframes`
+    0% {
+        background-position: -200px 0px;
+    }
+    100% {
+        background-position: calc(200px + 100%) 0px;
+    }
+`;
+
+export const ImageSpan = styled.span`
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+
+    animation: 1.2s ease-in-out 0s infinite normal none running ${gradientMove};
+    background-image: linear-gradient(90deg, rgba(0, 0, 0, 0), rgb(255, 255, 255), rgba(0, 0, 0, 0));
+    background-color: rgb(179, 179, 179);
+    background-size: 200px 100%;
+    background-repeat: no-repeat;
+    opacity: 0.1;
+`;
+
+export const TitleSpan = styled.span`
+    height: 30px;
+    width: 300px;
+    display: block;
+    border-radius: 4px;
+
+    animation: 1.2s ease-in-out 0s infinite normal none running ${gradientMove};
+    background-image: linear-gradient(90deg, #3D3D4D, ${lighten(0.1, '#3D3D4D')}, #3D3D4D);
+    background-color: #3D3D4D;
+    background-size: 200px 100%;
+    background-repeat: no-repeat;
+    opacity: 0.4;
+`;
+
+export const DescriptionSpan = styled.span`
+    height: 20px;
+    width: 500px;
+    margin-top: 10px;
+    display: block;
+    border-radius: 4px;
+
+    animation: 1.2s ease-in-out 0s infinite normal none running ${gradientMove};
+    background-image: linear-gradient(90deg, #A8A8B3, ${lighten(0.1, '#A8A8B3')}, #A8A8B3);
+    background-color: #A8A8B3;
+    background-size: 200px 100%;
+    background-repeat: no-repeat;
+    opacity: 0.4;
+`;
+
+export const LiSpan = styled.span`
+    height: 40px;
+    width: 35px;
+    margin-top: 4px;
+    opacity: 0.3;
+    border-radius: 4px;
+
+    animation: 1.2s ease-in-out 0s infinite normal none running ${gradientMove};
+    background-image: linear-gradient(90deg, #3D3D4D, ${lighten(0.2, '#3D3D4D')}, #3D3D4D);
+    background-color: #3D3D4D;
+    background-size: 200px 100%;
+    background-repeat: no-repeat;
 `;
